@@ -19,5 +19,5 @@ EXPOSE 8080
 
 # Generate initial data, start scheduler in background, then Flask app
 CMD python -c "from pipeline.scheduler import run_weekly_summary; run_weekly_summary()" && \
-    python pipeline/scheduler.py & \
+    python scheduler.py & \
     python -m flask --app app run --host=0.0.0.0 --port=8080
