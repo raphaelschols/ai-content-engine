@@ -487,14 +487,7 @@ def get_data():
             'message': str(e),
             'data': []
         }), 500
-
-if __name__ == '__main__':
-    print("Starting AI Focus Feed Dashboard...")
     
-    # Disable reloader on Windows to avoid signal issues
-    is_windows = platform.system() == 'Windows'
-    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=not is_windows)
-
 @app.route("/weekly-task", methods=["POST"])
 def weekly_task():
     """Endpoint for Google Cloud Scheduler to trigger weekly summary"""
@@ -504,3 +497,10 @@ def weekly_task():
     except Exception as e:
         print(f"Error in weekly task: {e}")
         return f"Error: {str(e)}", 500
+
+if __name__ == '__main__':
+    print("Starting AI Focus Feed Dashboard...")
+    
+    # Disable reloader on Windows to avoid signal issues
+    is_windows = platform.system() == 'Windows'
+    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=not is_windows)

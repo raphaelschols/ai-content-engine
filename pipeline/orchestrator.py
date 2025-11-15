@@ -147,10 +147,3 @@ class ContentPipeline:
         """Legacy method - returns flattened list of articles with ideas"""
         results = self.run_complete_pipeline(top_n)
         return results.get('content_ideas', [])
-
-
-pipeline = ContentPipeline()
-
-pipeline_run = pipeline.run_complete_pipeline(top_n=10)
-
-pipeline_run['ranked_articles'][1]
