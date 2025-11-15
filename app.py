@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 from pipeline.orchestrator import ContentPipeline
+from scheduler import run_weekly_summary
 import platform
 import json
 import os
@@ -493,3 +494,13 @@ if __name__ == '__main__':
     # Disable reloader on Windows to avoid signal issues
     is_windows = platform.system() == 'Windows'
     app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=not is_windows)
+
+@app.route("/weekly-task", methods=["POST"])
+def weekly_task():
+    """Endpoint for Google Cloud Scheduler to trigger weekly summary"""
+    try:
+        run_weekly_summary()
+        return "Weekly task completed successfully", 200
+    except Exception as e:
+        print(f"Error in weekly task: {e}")
+        return f"Error: {str(e)}", 500
